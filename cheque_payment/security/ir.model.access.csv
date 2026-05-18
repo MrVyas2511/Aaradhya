@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cheque_property_admin,access_cheque_property_admin,model_cheque_property,base.group_erp_manager,1,1,1,1
+access_cheque_property_internal,access_cheque_property_internal,model_cheque_property,base.group_user,1,1,1,0
+access_bank_name_internal,access_bank_name_internal,model_bank_name,base.group_user,1,1,1,1

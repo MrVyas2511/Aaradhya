@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Search -->
+    <record id="cheque_property_view_search" model="ir.ui.view">
+        <field name="name">cheque.property.search</field>
+        <field name="model">cheque.property</field>
+        <field name="arch" type="xml">
+            <search string="search property">
+
+                <!-- Search -->
+                <field name="name"></field>
+
+                 <!-- Filter -->
+                 <filter string="Due Today" name="due_today"
+                 domain="[('due_today_color','=',True)]" />
+
+                <!-- Group By -->
+                <group expand="1">
+                    <!-- <filter string="Postcode" name="postcode" context="{'group_by':'postcode'}" /> -->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- View -->
+    <record id="cheque_property_view_tree" model="ir.ui.view">
+        <field name="name">cheque.property.tree</field>
+        <field name="model">cheque.property</field>
+        <field name="arch" type="xml">
+            <tree string="Channel" decoration-danger="due_today_color == True">
+                <field name="name" />
+                <field name="due_today_color" column_invisible="1"/>
+                <field name="student_id"/>
+                <field name="cheque_no"/>
+                <field name="cheque_amount"/>
+                <field name="bank_name_id"/>
+                <field name="due_date"/>
+                <field name="state" widget="badge" decoration-danger="due_today_color and state == 'draft'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cheque_property_view_kanban" model="ir.ui.view">
+        <field name="name">cheque.property.kanban</field>
+        <field name="model">cheque.property</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" default_group_by="state" sample="1">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <strong class="col-6">
+                                    <field name="name" />
+                                    <field name="due_date" />
+                                </strong>
+                                <!-- <strong class="col-6 text-end">
+                                    <strong><field name="price" widget="monetary"/></strong>
+                                </strong>
+                                <div class="col-6">
+                                    <span t-esc="record.min_qty.value"/>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span t-esc="record.delay.value"/> days
+                                </div> -->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <!-- Form -->
+    <record id="cheque_property_form" model="ir.ui.view">
+        <field name="name">cheque.property.form</field>
+        <field name="model">cheque.property</field>
+        <field name="arch" type="xml">
+            <form string="test">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,ready_to_submit,cleared,submitted" readonly="false" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <h1 class="mb-3">
+                        <field name="name" placeholder="Cheque Title E.g. Cheque-1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="cheque_no"/>
+                            <field name="bank_name_id"/>
+                        </group>
+                        <group>
+                            <field name="due_date" />
+                            <field name="cheque_amount"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="description" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <!-- Chatter view -->
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Records -->
+    <record id="cheque_property_action" model="ir.actions.act_window">
+        <field name="name">Cheque Property </field>
+        <field name="res_model">cheque.property</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_due_today': 1}</field>
+        <field name="search_view_id" ref="cheque_property_view_search"/>
+    </record>
+
+    <!-- Menu -->
+    <!-- Root -->
+    <menuitem id="cheque_menu_root" name="Cheque" />
+    <!-- Advertisement menu-->
+    <menuitem id="first_level_menu_advertisement" action="cheque_property_action" name="Cheques" parent="cheque_menu_root" />
+    <!-- <menuitem id="cheque_model_menu_action" action="cheque_property_action" name="Cheques"
+        parent="first_level_menu_advertisement" /> -->
+    <!-- Setting menu -->
+    <menuitem id="first_level_menu_setting" name="Settings" parent="cheque_menu_root" />
+
+</odoo>

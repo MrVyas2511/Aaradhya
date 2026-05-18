@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   
+    <!-- Form -->
+    <record id="student_property_form_inherit" model="ir.ui.view">
+        <field name="name">student.property.form.inherit</field>
+        <field name="model">student.property</field>
+        <field name="inherit_id" ref="students.student_property_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//page[@name='description']" position="after">
+                    <page string="Cheuqes">
+                        <field name="cheque_ids">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+        </field>
+    </record>
+</odoo>
