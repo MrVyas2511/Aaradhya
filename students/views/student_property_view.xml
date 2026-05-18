@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Search -->
+    <record id="student_property_view_search" model="ir.ui.view">
+        <field name="name">student.property.search</field>
+        <field name="model">student.property</field>
+        <field name="arch" type="xml">
+            <search string="search property">
+                <!-- Search -->
+                <field name="name"></field>
+                <!-- Group By -->
+                <group expand="1">
+                    <filter string="Batch" name="group_by_batch" context="{'group_by':'batch'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- View -->
+    <record id="student_property_view_tree" model="ir.ui.view">
+        <field name="name">student.property.tree</field>
+        <field name="model">student.property</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+                <field name="standard"/>
+                <field name="medium"/>
+                <field name="batch"/>
+                <field name="parent_contact"/>
+                <field name="alternative_contact"/>
+                <field name="dob"/>
+                <field name="gender"/>
+                <field name="subject"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="student_property_view_kanban" model="ir.ui.view">
+        <field name="name">student.property.kanban</field>
+        <field name="model">student.property</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" default_group_by="standard" sample="1">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <strong class="col-6">
+                                    <field name="name" />
+                                </strong>
+                                <!-- <strong class="col-6 text-end">
+                                    <strong><field name="price" widget="monetary"/></strong>
+                                </strong>
+                                <div class="col-6">
+                                    <span t-esc="record.min_qty.value"/>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span t-esc="record.delay.value"/> days
+                                </div> -->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <!-- Form -->
+
+
+    <record id="student_property_form" model="ir.ui.view">
+        <field name="name">student.property.form</field>
+        <field name="model">student.property</field>
+        <field name="arch" type="xml">
+            <form string="test">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="E.g. Vyas Divyesh Arvindbhai" />
+                    </h1>
+                    <group col="4">
+                        <group>
+                            <field name="standard"/>
+                        </group>
+                        <group>
+                            <field name="medium"/>
+                        </group>
+                        <group>
+                            <field name="batch"/>
+                        </group>    
+                        <group>
+                            <field name="subject"/>
+                        </group>
+                    </group>
+                    <group col="2">
+                        <group>
+                            <field name="parent_contact" widget="phone"/>
+                        </group>
+                        <group>
+                            <field name="alternative_contact" widget="phone"/>
+                        </group>
+                    </group>
+                    <group col="2">
+                        <group>
+                            <field name="dob"/>
+                        </group>
+                        <group>
+                            <field name="gender"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description" name="description">
+                            <group>
+                                <field name="description" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <!-- Chatter view -->
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Records -->
+    <record id="student_property_action" model="ir.actions.act_window">
+        <field name="name">Student Property </field>
+        <field name="res_model">student.property</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">
+            {
+                'search_default_group_by_batch': 1
+            }
+        </field>
+        <!-- <field name="domain">[("user_ids", 'in', [uid])]</field> -->
+    </record>
+    <!-- Records -->
+    <record id="student_class_action" model="ir.actions.act_window">
+        <field name="name">Student Class </field>
+        <field name="res_model">student.class</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Records -->
+    <record id="student_batch_action" model="ir.actions.act_window">
+        <field name="name">Student Batch </field>
+        <field name="res_model">student.batch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu -->
+    <!-- Root -->
+    <menuitem id="student_menu_root" name="Student" />
+    <!-- Advertisement menu-->
+    <menuitem id="first_level_menu_students" action="student_property_action" name="Students" parent="student_menu_root" />
+    <menuitem id="first_level_menu_student_class" action="student_class_action" name="Standards" parent="student_menu_root" />
+    <menuitem id="first_level_menu_student_batch" action="student_batch_action" name="Batch" parent="student_menu_root" />
+    <!-- <menuitem id="student_model_menu_action" action="student_property_action" name="Students"
+        parent="first_level_menu_advertisement" /> -->
+    <!-- Setting menu -->
+    <!-- <menuitem id="first_level_menu_setting" name="Settings" parent="student_menu_root" /> -->
+
+</odoo>

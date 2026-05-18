@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_student_property_admin,access_student_property_admin,model_student_property,base.group_erp_manager,1,1,1,1
+access_student_property_internal,access_student_property_internal,model_student_property,base.group_user,1,1,1,0
+access_student_class_admin,access_student_class_admin,model_student_class,base.group_erp_manager,1,1,1,1
+access_student_class_internal,access_student_class_internal,model_student_class,base.group_user,1,0,0,0
+access_student_batch_admin,access_student_batch_admin,model_student_batch,base.group_erp_manager,1,1,1,1
+access_student_batch_internal,access_student_batch_internal,model_student_batch,base.group_user,1,0,0,0
+
